@@ -1,0 +1,65 @@
+Dear Project Memebers.
+
+This file is included specifically for the first git commit.
+ If you are not From our University Project. Move along Nothing to see here.
+ As for you lazy bastards. This is meant for you to speculate. So that you don't fuck up during
+ questions and and answers.
+ The comment in lapsipc are quite sparse. It's beacuse it will change rapidly and comment are irrelevant
+ Also if you have time learn and comment
+
+SUMMARY:
+ lapsipc.c:
+ lapsipc.c is for creating a fifo and communicating with python
+ It creates a fifo see 'man 7 fifo' in terminal
+ Functions such as open read are documented in linux. And function starting
+ from g for e.g  g_io_add_watch() is a glib function to call the given call back function
+ on the given occasion. Here it call the input callback to fetch the data if there is data to fetch
+
+ lapsi-backend.c:
+ This opens the window and gstreamer element. It is commented fairly Enough
+ I have modified this file written for old version of gtk and gstreamer
+ http://docs.gstreamer.com/display/GstSDK/Basic+tutorial+5%3A+GUI+toolkit+integration
+ for our use and to be compiled by gstreamer-1.0 and gtk+-3.0.
+
+
+ main.py
+ It is similar to lapsipc and is commented anyway.
+
+
+ makefile
+ learn about the gnu make. It's Just something to make compilation easier
+ http://mrbook.org/tutorials/make/
+
+
+ dependencies
+ gtk+-3.0 gstreamer-1.0 gstreamer-1.0*
+ USE APT-GET !! USE APT-GET !!
+
+
+ TODO:
+  This is bare bone of what we what we want to do.
+  1.Create a basic player in c. >>>>>This is done(almost)
+  2.Create a IPC(InterProcessCommunication) structure. >>>>>> We managed to pass a string. back and forth
+  3.Write a API to extend the basic player in c using python.
+  >>>>Elaboration of Number 3:
+    for example you want a function named play in python.
+    i. define a function named play in c.
+    ii. the function passes string "play" to our c player.
+    iii. c catches the "play" string and calls function play.
+  4.Gtk Sockets and GTK plugs
+  >>>>Google it.
+
+Trying to Use:
+ You must have all dependencies installed.
+ run
+ make pyexec >>>>>>Do only once and you are set.
+ make
+ make clean >>>>Clean the object files.
+
+If You truly care to compile you will have to google a lot. I mean a LOT. Don't be scared.
+The media file will only play you have correct plugins installed but the compiling must be easy.
+
+Good Day:
+If you have any questions. Don't ask me. :D.
+JK. See you.
+WHY AM I WRITING THIS YOU ARE NOT SEEING THIS ANYWAY.
