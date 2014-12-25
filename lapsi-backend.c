@@ -4,7 +4,7 @@ static guintptr window_handle;
 
 /* This function is called when the GUI toolkit creates the physical window that will hold the video.
  * At this point we can retrieve its handler (which has a different meaning depending on the windowing system)
- * and pass it to GStreamer through the XOverlay interface. */
+ * and pass it to GStreamer through the VideoOverlay interface. */
 static void realize_cb (GtkWidget *widget, CustomData *data) {
   GdkWindow *window = gtk_widget_get_window (widget);
   if (!gdk_window_ensure_native (window))
@@ -320,7 +320,7 @@ play_file(CustomData *data)
 int
 set_uri(CustomData *data,char *path)
 {
-  g_object_set (data->playbin, "uri", "file:///home/hiro/lapsiAW/src/a.mp4", NULL);
+  g_object_set (data->playbin, "uri", "file:///home/hiro/lapsiAW/src/a.mp4", NULL); //Manually Fix this heheheh.
   g_signal_connect (G_OBJECT (data->playbin), "video-tags-changed", (GCallback) tags_cb, &data);
   g_signal_connect (G_OBJECT (data->playbin), "audio-tags-changed", (GCallback) tags_cb, &data);
   g_signal_connect (G_OBJECT (data->playbin), "text-tags-changed", (GCallback) tags_cb, &data);

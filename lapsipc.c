@@ -1,11 +1,13 @@
 #include"lapsipc.h"
+#define PATHIN "/home/hiro/lapsi/fifo"
+#define PATHOUT "/home/hiro/lapsi/fifo_"
 GIOChannel * channel;
-int FdIn;
+int FDIN,FDOUT;
 gboolean
 inputCallback()
 {
   char buf[4096];
-  read(FdIn,buf,4096);
+  read(FDIN,buf,4096);
   buf[strlen(buf)+1]='\0';
   printf("FROM LAPSI :: THE FOLLOWING STRING RECIEVED FROM PYLAPSI %s OF SIZE %d :\n",buf,strlen(buf));
   printf("FROM LAPSI :: EQUATING TO THE KNOWN STRING GIVES %d \n",strcmp(buf,"hellp"));
@@ -13,9 +15,10 @@ inputCallback()
 
 int setUpIpc()
 {
-  int fd;
+
   printf("Creating a fifo BY parent\n");
-  mkfifo(getFifoPath("/home/hiro/lapsi/fifo"),0666);
+  mkfifo(getFifoPath(PATHIN),0666); //fix this manually sorry
+  mkfifo(getFifoPath(PATHOUT),0666);
   pid_t pid = fork();
   if(pid == 0)
     {
@@ -26,21 +29,23 @@ int setUpIpc()
       {
         parentprocess();
       }
-      return fd;
+  return 0;
 }
 
 int parentprocess()
 {
-  FdIn = open(getFifoPath("/home/hiro/lapsi/fifo"),O_RDONLY | O_NONBLOCK);
-  channel = g_io_channel_unix_new(FdIn);
+  FDIN = open(getFifoPath(PATHIN),O_RDONLY | O_NONBLOCK);
+  FDOUT = open(getFifoPath(PATHOUT),O_WRONLY);
+  channel = g_io_channel_unix_new(FDIN);
   g_io_add_watch(channel,G_IO_IN,(GIOFunc)inputCallback,NULL);
-  return FdIn;
+  return FDIN;
 }
 
 
 int childprocess()
 {
-    execl("./main.py",NULL,(char*)NULL);
+    printf("executing the python process");
+    execl("./main.py","",(char*)NULL);
 
 }
 
@@ -50,7 +55,7 @@ char * getFifoPath(char * prefixPath)
   char *stringPid = malloc(getpid()+1);
   char *localPrefix=malloc(strlen(prefixPath)*sizeof(char)+20+getpid()+1);
   strcpy(localPrefix,prefixPath);
-  snprintf(stringPid,100,"%d",getpid());
+  snprintf(stringPid,40,"%d",getpid());
   strcat(localPrefix,stringPid);
   return localPrefix;
 }
@@ -58,10 +63,9 @@ char * getFifoPath(char * prefixPath)
 
 int outIpc()
 {
-  char *path = getFifoPath("/home/hiro/lapsi/fifo_");
-  int fd = open(path,O_WRONLY|O_NONBLOCK);
-  char * buff = "HELLO JANI";
-  write(fd,buff,strlen(buff)+1);
+  printf("Fd of Outward fifoo and its path %d and %s \n",FDOUT,PATHOUT);
+  char * buff = "success";
+  write(FDOUT,buff,strlen(buff)+1);
   printf("FROM LAPSI :: WROTE TO PYLAPSI CONNECTION SUCCESSFULL\n");
 
 }
@@ -69,7 +73,7 @@ int outIpc()
 
 int lapsipc_init()
 {
-  int fifoFdIn,fifoFdOut;
-  fifoFdIn = setUpIpc();
-  fifoFdOut = outIpc();
+  int fifoFDIN,fifoFDOUT;
+  fifoFDIN = setUpIpc();
+  fifoFDOUT = outIpc();
 }
