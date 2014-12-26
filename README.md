@@ -1,5 +1,8 @@
-###lapsi-inside
-============
+Intended for Project Peers
+===========
+
+![Lapsi Media Player](http://www.fsd2010.org/data/Image/phototheque/Fruits%20and%20seeds/Choerospondias_axillaris_Nepal.jpg "Lapsi in Nepali Post Mail Ticket" )
+
 
 #The Glapsi Media Player.
 ####A University Third Semester Project
