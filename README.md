@@ -28,7 +28,7 @@ however you might have to install the 'ugly' and 'bad' plugins to play certain f
 ###After you make sure you have all the dependencies.
 If you haven't downloaded this project. Download it first.
 ```
-  $ clone https://github.com/protagonist-hiro/lapsi-inside.git
+  $ git clone https://github.com/protagonist-hiro/lapsi-inside.git
 ```
 After you have this project in your machine
 ```
